@@ -1,31 +1,30 @@
 <?php
-class Soporte{
 
-private static const IVA = 21;
-public function __construct(
-    public string $titulo,
-    protected int $numero,
-    private float $precio
-){}
+class Soporte {
 
-public function getPrecio():float{
-   return $this->precio;
+    private const IVA = 21;
+
+    public function __construct(
+        public string $titulo,
+        protected int $numero,
+        private float $precio
+    ) {}
+
+    public function getPrecio(): float {
+        return $this->precio;
+    }
+
+    public function getPrecioConIVA(): float {
+        return $this->precio * (1 + self::IVA / 100);
+    }
+
+    public function getNumero(): int {
+        return $this->numero;
+    }
+
+    public function muestraResumen(): void {
+        echo "<br><strong>" . $this->titulo . "</strong>";
+        echo "<br>" . $this->precio . " € (IVA no incluido)";
+    }
+
 }
-
-public function getprecioConIVA():float{
-    return $this->precio * (1 + self::IVA / 100);
-
-}
-
-public function getNumero():int{
-    return $this->numero;
-
-}
-
-public function muestraResumen():string{
-    return "Titulo: $this->titulo, Numero: $this->numero, Precio: $this->precio, Precio con IVA: ".$this->getprecioConIVA();
-}
-
-}
-
-?>
