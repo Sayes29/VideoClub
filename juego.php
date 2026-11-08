@@ -34,7 +34,6 @@ class Juego extends Soporte
         }
 
     }
-    public 
 
     public function muestraResumen():void{
     echo "consola: " . $this->Consola . "<br>";
