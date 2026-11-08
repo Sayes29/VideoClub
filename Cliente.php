@@ -51,7 +51,27 @@ class Cliente
         return false;
     }
 
+    public function alquilar(Soporte $s): bool
+{
+    if ($this->tieneAlquilado($s)) {
+        echo "<br>El cliente ya tiene alquilado el soporte " . $s->titulo;
+        return false;
+    }
+
+    if ($this->getnumSoportesAlquilados() >= $this->maxAlquilerConcurrente) {
+        echo "<br>Este cliente tiene " . $this->getnumSoportesAlquilados() . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo.";
+        return false;
+    }
+
+    $this->soportesAlquilados[] = $s;
+    $this->numSoportesAlquilados++;
+
+    echo "<br><strong>Alquilado soporte a:</strong> " . $this->nombre . "<br>";
     
+    return true;
+}
+
+
 
 }
 
