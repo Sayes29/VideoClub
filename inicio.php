@@ -22,4 +22,5 @@ echo "<strong>" . $miJuego->titulo . "</strong>";
 echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
 echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
 $miJuego->muestraResumen();
+$miJuego->muestraJugadoresPosibles();
 ?>
