@@ -1,2 +1,2 @@
 # VideoClub
-Ejercicio de Miki, bendidinmashin, Alejandria
+Ejercicio de Miguel, Alejandro y Edwin
