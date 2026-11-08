@@ -52,27 +52,48 @@ class Cliente
     }
 
     public function alquilar(Soporte $s): bool
+    {
+        if ($this->tieneAlquilado($s)) {
+            echo "<br>El cliente ya tiene alquilado el soporte " . $s->titulo;
+            return false;
+        }
+
+        if ($this->getnumSoportesAlquilados() >= $this->maxAlquilerConcurrente) {
+            echo "<br>Este cliente tiene " . $this->getnumSoportesAlquilados() . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo.";
+            return false;
+        }
+
+        $this->soportesAlquilados[] = $s;
+        $this->numSoportesAlquilados++;
+        echo "<br><strong>Alquilado soporte a:</strong> " . $this->nombre . "<br>";
+
+        return true;
+    }
+
+    public function devolver(int $numSoporte): bool
+    {
+        $pos = 0;
+        foreach ($this->soportesAlquilados as $soporte) {
+            if ($soporte->getNumero() === $numSoporte) {
+                array_splice($this->soportesAlquilados, $pos, 1);
+                $this->numSoportesAlquilados--;
+                echo "<br>El cliente " . $this->nombre . " ha devuelto el soporte.";
+                return true;
+            }
+            $pos++;
+        }
+
+        echo "<br>No se ha podido encontrar el soporte en los alquileres de este cliente.";
+        return false;
+    }
+
+   public function listarAlquileres(): void
 {
-    if ($this->tieneAlquilado($s)) {
-        echo "<br>El cliente ya tiene alquilado el soporte " . $s->titulo;
-        return false;
-    }
-
-    if ($this->getnumSoportesAlquilados() >= $this->maxAlquilerConcurrente) {
-        echo "<br>Este cliente tiene " . $this->getnumSoportesAlquilados() . " elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo.";
-        return false;
-    }
-
-    $this->soportesAlquilados[] = $s;
-    $this->numSoportesAlquilados++;
-
-    echo "<br><strong>Alquilado soporte a:</strong> " . $this->nombre . "<br>";
+    echo "<br>Este cliente tiene " . $this->getnumSoportesAlquilados() . " soportes alquilados.";
     
-    return true;
-}
-
-
-
-}
+    foreach ($this->soportesAlquilados as $sopo) {
+        $sopo->muestraResumen();
+    }
+}}
 
 ?>
